@@ -1,0 +1,17 @@
+{
+  "name": "template-bits-module",
+  "version": "2.4.0",
+  "description": "An SAO generator for BITS modules",
+  "license": "Apache-2.0",
+  "scripts": {},
+  "dependencies": {
+    "generator-git-init": "^1.1.1",
+    "lodash": "^3.10.1",
+    "yeoman-generator": "^0.20.3"
+  },
+  "devDependencies": {
+    "path": "^0.12.7",
+    "sao": "^0.19.3",
+    "shelljs": "^0.7.8"
+  }
+}

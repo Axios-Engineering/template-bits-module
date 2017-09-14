@@ -1,0 +1,30 @@
+{
+    "name": "<%= name %>",
+    "version": "0.0.0",
+    "description": "<%= description %>",
+    "main": "index.js",
+    "scripts": {
+	"test": "mocha",
+	"lint": "eslint --fix --ext js,html .",
+        "build": "yarn && npm run lint && npm run test"
+    },
+    "module-dependencies": {
+        "bits-base": "^<%= bitsVersion %>"
+    },
+    "devDependencies": {
+      "eslint": "^4.4.1",
+      "eslint-plugin-html": "^3.2.0",
+      "eslint-config-google": "^0.9.1",
+      "mocha": "^3.2.0",
+      "chai": "^3.5.0"
+    },
+    "appDir": "app/",
+    "contentElement": "<%= this.kebabCase(name) %>-app",
+    "contentImport": "/elements/<%= this.kebabCase(name) %>/<%= this.kebabCase(name) %>-app.html",
+    "scopes": [
+      {"name": "public", "displayName": "Public"}
+    ],
+    "displayName": "<%= this.startCase(name) %>",
+    "icon": "icons:favorite",
+    "category": "<%= category %>"
+}

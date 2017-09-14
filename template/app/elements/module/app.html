@@ -1,0 +1,87 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../base-message-center/base-message-center.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<dom-module id="<%= this.kebabCase(name) %>-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .content {
+        margin-left: 0px;
+        max-width: 480px;
+      }
+
+      paper-input {
+        max-width: 400px;
+        margin: auto;
+      }
+
+      #reset-button {
+        @apply(--paper-font-body1);
+        color: var(--primary-color);
+      }
+
+    </style>
+
+    <base-message-center id="messageCenter"></base-message-center>
+    <h1><%= this.startCase(name) %></h1>
+    <p>
+      Current Value: {{counter}} </br>
+    </p>
+    <div class="content">
+
+      <paper-input
+        id="reset_counter"
+        label="New Counter Value"
+        value="{{newCounter}}"
+        invalid="{{invalidCounter}}"
+        auto-focus
+        auto-validate
+        required
+        error-message="Reset counter value is required."
+        tabindex="0">
+      </paper-input>
+      
+      <paper-button id="reset-button" disabled="[[invalid]]" on-tap="resetCounter">Reset</paper-button>
+    </div>
+
+  </template>
+  <script>
+  (() => {
+    'use strict';
+
+    Polymer({
+      is: '<%= this.kebabCase(name) %>-app',
+      properties: {
+        counter: Number,
+        newCounter: Number,
+        invalidCounter: Boolean,
+        invalid: {
+          type: Boolean,
+          computed: '_computeInvalid(invalidCounter)'
+        }
+      },
+      _computeInvalid(invalidCounter) {
+        return invalidCounter;
+      },
+      resetCounter() {
+        const messageCenter = this.$.messageCenter;
+        messageCenter.sendRequest('<%= this.kebabCase(name) %>#reset', this.newCounter);
+      },
+      ready: function() {
+        const messageCenter = this.$.messageCenter;
+      
+        messageCenter.addSocketEventListener('<%= this.kebabCase(name) %>#counter', (value) => {
+          this.counter = value;
+        });
+      }
+    });
+
+  })();
+  </script>
+</dom-module>
